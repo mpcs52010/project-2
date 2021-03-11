@@ -96,7 +96,7 @@ Bigint mult_big(Bigint a, Bigint b)
 			c.digits[j] = val % 10;
 		}
 	}
-	
+
 	// Trim any leading zeros
 	compress(&c);
 
@@ -110,13 +110,43 @@ Bigint mult_big(Bigint a, Bigint b)
 Bigint sub_big(Bigint a, Bigint b)
 {
 	Bigint c;
-	// YOUR CODE HERE
-	// YOUR CODE HERE
-	// YOUR CODE HERE
-	// YOUR CODE HERE
-	// YOUR CODE HERE
-	// YOUR CODE HERE
-	// YOUR CODE HERE
+
+	// c can have (at most) the number of digits in a, the larger of the two numbers
+	c.n = a.n;
+
+	// Carry value to add to or take from subsequent digit-digit subtraction
+	int carry = 0;
+
+	// Perform basic basic subtraction digit by digit
+	for( int i = 0; i < c.n; i++ )
+	{
+		int cDigit;
+		if ( (i + 1) > b.n)
+		{
+			// If b does not have as many digits as a
+			cDigit = a.digits[i];
+		} else
+		{
+			cDigit = a.digits[i] - b.digits[i];
+		}
+
+		// Add and update carry value, and place cDigit in c
+		cDigit += carry;
+		if ( cDigit < 0 ) {
+			cDigit += 10;
+			carry = -1;
+		} else if ( cDigit >= 10 ) {
+			cDigit -= 10;
+			carry += 1;
+		} else {
+			carry = 0;
+		}
+		c.digits[i] = cDigit;
+	}
+
+	// Trim any leading zeros
+	compress(&c);
+
 	return c;
 }
 
@@ -144,7 +174,7 @@ int compare_big(Bigint a, Bigint b)
 	// if a has fewer digits than b, its definitely smaller
 	if( a.n < b.n )
 		return -1;
-	
+
 	// if a has more digits than b, its definitely larger
 	if( a.n > b.n )
 		return 1;
@@ -186,13 +216,12 @@ void shift_right(Bigint * a )
 // we only need to shift our integer array to the left once.
 void shift_left(Bigint * a )
 {
-	// YOUR CODE HERE
-	// YOUR CODE HERE
-	// YOUR CODE HERE
-	// YOUR CODE HERE
-	// YOUR CODE HERE
-	// YOUR CODE HERE
-	// YOUR CODE HERE
+	// Copy stuff
+	for( int i = 0; i < a->n - 1; i++ )
+		a->digits[i] = a->digits[i+1];
+
+	// Set to new smaller size
+	a->n -= 1;
 }
 
 // Computes c = a % b
@@ -217,7 +246,7 @@ Bigint mod_big(Bigint a, Bigint b)
 	Bigint original_b = b;
 
 	// Keep multiplying the denominator (b) by 10 until it is larger than the numerator (a)
-	while( compare_big(a, b) == 1 ) // tests if a > b 
+	while( compare_big(a, b) == 1 ) // tests if a > b
 		shift_right(&b);
 
 	// We went too far, so divide once by 10
@@ -225,7 +254,7 @@ Bigint mod_big(Bigint a, Bigint b)
 
 	// At this point, we have the largest possible multiple of the denominator
 	// without being larger than the numerator.
-	
+
 	// Keep reducing size of denominator by factor of 10 until it equals its original size
 	while( compare_big(b,original_b) != -1 ) // tests if b >= original_b
 	{
@@ -253,7 +282,7 @@ int LLT(int p)
 	// Mp = 2^p - 1
 	Bigint Mp = pow_big(two, p);
 	Mp =  sub_big(Mp, one);
- 
+
 	// s = 4
 	Bigint s = digit_to_big(4);
 
@@ -294,24 +323,28 @@ int main(void)
 		if( is_small_prime(p) )
 		{
 			printf("Testing p = %d ", p);
+            int is_odd = p % 2;
+            if(is_odd)
+            { // Run LLT test of Mp
+              int is_prime = LLT(p);
+              if(is_prime)
+              {
+								printf("found prime Mp = ");
+								Bigint one  = digit_to_big(1);
+								Bigint two  = digit_to_big(2);
 
-			// Run LLT test of Mp
-			int is_prime = LLT(p);
-
-			if(is_prime)
-			{
-				printf("found prime Mp = ");
-				Bigint one  = digit_to_big(1);
-				Bigint two  = digit_to_big(2);
-
-				// Mp = 2^p - 1
-				Bigint Mp = pow_big(two, p);
-				Mp =  sub_big(Mp, one);
-				print_big(Mp);
-			}
-			else
-				printf("Mp not prime\n");
-
+								// Mp = 2^p - 1
+								Bigint Mp = pow_big(two, p);
+								Mp =  sub_big(Mp, one);
+								print_big(Mp);
+            	}
+							else
+	              printf("Mp not prime\n");
+	          }
+            // LLT is only valid for odd primes
+            // 2 is the only even prime
+            else
+              printf("found prime p = 2\n");
 		}
 	}
 
