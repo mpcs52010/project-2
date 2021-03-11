@@ -1,0 +1,64 @@
+Small Prime Tests
+1
+0
+1
+Compress Tests
+3
+Shift Right Testn
+3000
+Shift Left Test
+70
+Comparison Tests
+1
+-1
+0
+Multiply Tests
+21
+1260
+90000000000000
+Power Tests
+81
+150130937545296572356771972164254457814047970568738777235893533016064
+Subtraction Tests
+4
+30
+8992345679
+Modulus Tests
+1
+0
+6172825
+LLT Tests
+0
+1
+Mersenne Scan
+Testing p = 2 found prime p = 2
+Testing p = 3 found prime Mp = 7
+Testing p = 5 found prime Mp = 31
+Testing p = 7 found prime Mp = 127
+Testing p = 11 Mp not prime
+Testing p = 13 found prime Mp = 8191
+Testing p = 17 found prime Mp = 131071
+Testing p = 19 found prime Mp = 524287
+Testing p = 23 Mp not prime
+Testing p = 29 Mp not prime
+Testing p = 31 found prime Mp = 2147483647
+Testing p = 37 Mp not prime
+Testing p = 41 Mp not prime
+Testing p = 43 Mp not prime
+Testing p = 47 Mp not prime
+Testing p = 53 Mp not prime
+Testing p = 59 Mp not prime
+Testing p = 61 found prime Mp = 2305843009213693951
+Testing p = 67 Mp not prime
+Testing p = 71 Mp not prime
+Testing p = 73 Mp not prime
+Testing p = 79 Mp not prime
+Testing p = 83 Mp not prime
+Testing p = 89 found prime Mp = 618970019642690137449562111
+Testing p = 97 Mp not prime
+Testing p = 101 Mp not prime
+Testing p = 103 Mp not prime
+Testing p = 107 found prime Mp = 162259276829213363391578010288127
+Testing p = 109 Mp not prime
+Testing p = 113 Mp not prime
+Testing p = 127 found prime Mp = 170141183460469231731687303715884105727
